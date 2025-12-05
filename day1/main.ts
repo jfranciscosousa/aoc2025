@@ -14,9 +14,9 @@ async function parseInstructions(input: string): Promise<Instruction[]> {
     if (!match) throw new Error("wrong_input");
 
     const dir = match[1] as "L" | "R";
-    const amt = Number(match[2]);
+    const amt = BigInt(match[2]);
 
-    if (!Number.isFinite(amt) || amt < 0) throw new Error("wrong_input");
+    if (!BigInt.isFinite(amt) || amt < 0) throw new Error("wrong_input");
 
     return {
       direction: dir,
