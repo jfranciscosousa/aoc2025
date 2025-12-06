@@ -1,4 +1,4 @@
-class Matrix<T = unknown> {
+export class Matrix<T = unknown> {
   private content: T[][];
   readonly height: number;
   readonly width: number;
@@ -81,6 +81,31 @@ class Matrix<T = unknown> {
     }
   }
 
+  /**
+   * Iterate over adjacent cells (including diagonals) of a point
+   */
+  *adjacents(y: number, x: number): IterableIterator<[T, number, number]> {
+    const directions = [
+      [-1, -1],
+      [-1, 0],
+      [-1, 1], // top-left, top, top-right
+      [0, -1],
+      [0, 1], // left, right
+      [1, -1],
+      [1, 0],
+      [1, 1], // bottom-left, bottom, bottom-right
+    ];
+
+    for (const [dy, dx] of directions) {
+      const newY = y + dy;
+      const newX = x + dx;
+
+      if (newY >= 0 && newY < this.height && newX >= 0 && newX < this.width) {
+        yield [this.content[newY][newX], newY, newX];
+      }
+    }
+  }
+
   calculateEntropy(): number {
     const { width, height, content } = this;
 
@@ -110,5 +135,3 @@ class Matrix<T = unknown> {
     return this.content.map((s) => s.join("")).join("\n");
   }
 }
-
-export { Matrix };
