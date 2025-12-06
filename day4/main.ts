@@ -1,4 +1,4 @@
-import { readInputLines, readInputMatrix } from "../utils/files.ts";
+import { readInputMatrix } from "../utils/files.ts";
 import { Matrix } from "../utils/matrix.ts";
 
 const PAPER = "@";
