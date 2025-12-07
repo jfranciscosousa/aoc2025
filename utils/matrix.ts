@@ -106,6 +106,19 @@ export class Matrix<T = unknown> {
     }
   }
 
+  /**
+   * Iterate over all elements in a specific column
+   */
+  *column(x: number): IterableIterator<[T, number, number]> {
+    if (x < 0 || x >= this.width) {
+      throw new RangeError(`Column ${x} is out of bounds.`);
+    }
+
+    for (let y = 0; y < this.height; y++) {
+      yield [this.content[y][x], y, x];
+    }
+  }
+
   calculateEntropy(): number {
     const { width, height, content } = this;
 
